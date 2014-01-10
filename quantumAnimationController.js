@@ -93,7 +93,7 @@
                 takesControlBits: true, takesRotationAngle: true},
             {name: 'Y Rotation', op: 'controlledYRotation', options: {skipInterferenceSteps: false},
                 takesControlBits: true, takesRotationAngle: true},
-            {name: 'Z Rotation', op: 'controlledZRotation', options: {skipInterferenceSteps: false},
+            {name: 'Z Rotation', op: 'controlledZRotation', options: {skipInterferenceSteps: true},
                 takesControlBits: true, takesRotationAngle: true},
             {name: 'QFT', op: 'qft', options: {skipInterferenceSteps: false},
                 takesControlBits: false}
