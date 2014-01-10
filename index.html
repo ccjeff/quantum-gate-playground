@@ -25,66 +25,74 @@
     demonstrating constructive and destructive interference.
 </p>
 
-<div>
-    <label for="numBits">Number of qubits:</label>
-    <select id="numBits" data-ng-model='numBitsSelected' data-ng-change="onChangeNumBits()">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-    </select>
+<div data-ng-hide="true">
+    <img src="spinner.gif" />
 </div>
 
-<form data-ng-submit="performOperation()">
-<fieldset class="quantumOpSpecification">
-<legend>Specify the operation to be performed</legend>
-<div class="quantumOpSpecification_item">
-    <label class="quantumOpSpecification_label"  for="operation">Operator:</label>
-    <select name="operationId" id="operation"
-        data-ng-model='operationIndex' data-ng-change="onChangeOperation()">
-        <option data-ng-repeat='operation in operations' ng-value="$index"
-            data-ng-bind='operation.name'>
-        </option>
-    </select>
+<div data-ng-cloak>
+    <div>
+        <label for="numBits">Number of qubits:</label>
+        <select id="numBits" data-ng-model='numBitsSelected' data-ng-change="onChangeNumBits()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+    
+    <form data-ng-submit="performOperation()">
+    <fieldset class="quantumOpSpecification">
+    <legend>Specify the operation to be performed</legend>
+    <div class="quantumOpSpecification_item">
+        <label class="quantumOpSpecification_label"  for="operation">Operator:</label>
+        <select name="operationId" id="operation"
+            data-ng-model='operationIndex' data-ng-change="onChangeOperation()">
+            <option data-ng-repeat='operation in operations' ng-value="$index"
+                data-ng-bind='operation.name'>
+            </option>
+        </select>
+    </div>
+    
+    <div class="quantumOpSpecification_item"
+        data-ng-class="{quantumOpSpecification_item_disabled: controlBitsDisabled}">
+        <label class="quantumOpSpecification_label" >Control bits:</label>
+        <span data-ng-repeat='bitLabel in bitLabels'>
+            <label ng-bind='bitLabel' for="control{{bitLabel}}"
+                class="quantumOpSpecification_checkboxLabel"></label>
+            <input type="checkbox" id='control{{bitLabel}}'
+                data-ng-model='controlBits[bitLabel]'
+                data-ng-disabled="controlBitsDisabled"
+                data-ng-change="onChangeControlBits()"/>
+        </span>
+    </div>
+    <div class="quantumOpSpecification_item"
+        data-ng-class="{quantumOpSpecification_item_disabled: targetBitsDisabled}">
+        <label class="quantumOpSpecification_label" >Target bits:</label>
+        <span data-ng-repeat='bitLabel in bitLabels'>
+            <label ng-bind='bitLabel' for="target{{bitLabel}}"
+                class="quantumOpSpecification_checkboxLabel"></label>
+            <input type="checkbox" id='target{{bitLabel}}'
+                data-ng-model='targetBits[bitLabel]'
+                data-ng-disabled="targetBitsDisabled"
+                data-ng-change="onChangeTargetBits()"/>
+        </span>
+        <button type="button" data-ng-click='selectAllAsTargetBits()'>All Non-Control Bits</button>
+    </div>
+    
+    <div class="quantumOpSpecification_item">
+        <input type="submit" data-ng-disabled="!validInputs()" value="Perform Operation"></input>
+    </div>
+    
+    </fieldset>
+    
+     <output class="qstate" ng-bind='animatedQubitsContainer.qstate'></output>
+    
+    </form>
+    
+    <svg id='animatedQubitsSvg' data-animated-qubits='animatedQubitsContainer' class='animatedQubits'>
+    </svg>
+
 </div>
-
-<div class="quantumOpSpecification_item"
-    data-ng-class="{quantumOpSpecification_item_disabled: controlBitsDisabled}">
-    <label class="quantumOpSpecification_label" >Control bits:</label>
-    <span data-ng-repeat='bitLabel in bitLabels'>
-        <label ng-bind='bitLabel' for="control{{bitLabel}}"
-            class="quantumOpSpecification_checkboxLabel"></label>
-        <input type="checkbox" id='control{{bitLabel}}'
-            data-ng-model='controlBits[bitLabel]'
-            data-ng-disabled="controlBitsDisabled"
-            data-ng-change="onChangeControlBits()"/>
-    </span>
-</div>
-<div class="quantumOpSpecification_item"
-    data-ng-class="{quantumOpSpecification_item_disabled: targetBitsDisabled}">
-    <label class="quantumOpSpecification_label" >Target bits:</label>
-    <span data-ng-repeat='bitLabel in bitLabels'>
-        <label ng-bind='bitLabel' for="target{{bitLabel}}"
-            class="quantumOpSpecification_checkboxLabel"></label>
-        <input type="checkbox" id='target{{bitLabel}}'
-            data-ng-model='targetBits[bitLabel]'
-            data-ng-disabled="targetBitsDisabled"
-            data-ng-change="onChangeTargetBits()"/>
-    </span>
-    <button type="button" data-ng-click='selectAllAsTargetBits()'>All Non-Control Bits</button>
-</div>
-
-<div class="quantumOpSpecification_item">
-    <input type="submit" data-ng-disabled="!validInputs()" value="Perform Operation"></input>
-</div>
-
-</fieldset>
-
- <output class="qstate" ng-bind='animatedQubitsContainer.qstate'></output>
-
-</form>
-
-<svg id='animatedQubitsSvg' data-animated-qubits='animatedQubitsContainer' class='animatedQubits'></svg>
 
 <p>
     Built using the
