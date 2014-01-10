@@ -8,8 +8,8 @@
     function QuantumAnimationController($scope) {
     
         function updateState() {
-            $scope.controlBitsDisabled = $scope.numBits === 1 ||
-                !$scope.operations[$scope.operationIndex].takesControlBits;
+            $scope.operation = $scope.operations[$scope.operationIndex];
+            $scope.controlBitsDisabled = $scope.numBits === 1 || !$scope.operation.takesControlBits;
             if ($scope.controlBitsDisabled) $scope.controlBits.length = 0;
             $scope.targetBitsDisabled = $scope.numBits === 1;
             if ($scope.numBits === 1) $scope.targetBits = [true];
@@ -31,8 +31,7 @@
                 $scope.bitLabels.push(i);
             }
 
-            $scope.animatedQubitsContainer.qstate =
-                new jsqubits.QState($scope.numBits).hadamard(jsqubits.ALL);
+            $scope.animatedQubitsContainer.qstate = new jsqubits.QState($scope.numBits);
             $scope.animatedQubitsContainer.animatedQubits =
                 animatedQubits($scope.animatedQubitsContainer.qstate, {maxRadius: 50});
             updateState();
@@ -45,15 +44,23 @@
             }, []);
         }
         
+        function determineRotationAngle() {
+            // Use parseInt just in case the browser doesn't support input-type="number"
+            var angle = parseInt($scope.rotationAngle, 10);
+            return $scope.rotationUnits === "degrees" ? Math.PI * angle / 180 : angle;
+        }
+        
         function measure(targetBits) {
             return $scope.animatedQubitsContainer.animatedQubits.measure(targetBits);
         }
         
-        function applyOperation(operation, controlBits, targetBits) {
+        function applyOperation(operation, controlBits, targetBits, rotationAngle) {
             function op(qstate) {
-                return operation.takesControlBits ?
-                    qstate[operation.op](controlBits, targetBits) :
-                    qstate[operation.op](targetBits);
+                var params = [];
+                if (operation.takesControlBits) params.push(controlBits);
+                params.push(targetBits);
+                if (operation.takesRotationAngle) params.push(rotationAngle);
+                return qstate[operation.op].apply(qstate, params);
             }
             return $scope.animatedQubitsContainer.animatedQubits.applyOperation(op, operation.options);
         }
@@ -63,6 +70,8 @@
         $scope.bitLabels = [];
         $scope.controlBits = [];
         $scope.targetBits = [];
+        $scope.rotationAngle = 0;
+        $scope.rotationUnits = "degrees";
         $scope.animatedQubitsContainer = {};
         
         $scope.operations = [
@@ -80,6 +89,12 @@
                 takesControlBits: true},
             {name: 'S', op: 'controlledS', options: {skipInterferenceSteps: true},
                 takesControlBits: true},
+            {name: 'X Rotation', op: 'controlledXRotation', options: {skipInterferenceSteps: false},
+                takesControlBits: true, takesRotationAngle: true},
+            {name: 'Y Rotation', op: 'controlledYRotation', options: {skipInterferenceSteps: false},
+                takesControlBits: true, takesRotationAngle: true},
+            {name: 'Z Rotation', op: 'controlledZRotation', options: {skipInterferenceSteps: false},
+                takesControlBits: true, takesRotationAngle: true},
             {name: 'QFT', op: 'qft', options: {skipInterferenceSteps: false},
                 takesControlBits: false}
         ];
@@ -115,11 +130,12 @@
             var operationResultPromise,
                 controlBits = extractBitIndexes($scope.controlBits),
                 targetBits = extractBitIndexes($scope.targetBits),
-                operation = $scope.operations[$scope.operationIndex];
+                rotationAngle = determineRotationAngle(),
+                operation = $scope.operation;
                 
             operationResultPromise = (operation.op === "measure") ?
                 measure(targetBits) :
-                applyOperation(operation, controlBits, targetBits);
+                applyOperation(operation, controlBits, targetBits, rotationAngle);
 
             operationResultPromise.then(function succeeded(newQState) {
                     $scope.$apply(function updateQState() {

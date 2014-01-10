@@ -79,13 +79,25 @@
         <button type="button" data-ng-click='selectAllAsTargetBits()'>All Non-Control Bits</button>
     </div>
     
+    <div class="quantumOpSpecification_item"
+        data-ng-class="{quantumOpSpecification_item_disabled: !operation.takesRotationAngle}">
+        <label for="rotationAngle">Rotation angle:</label>
+        <input type="number" name="rotationAngle" id="rotationAngle"
+            data-ng-model="rotationAngle" data-ng-disabled="!operation.takesRotationAngle"/>
+        <input type="radio" id="rotationUnitsDegrees" data-ng-model="rotationUnits" value="degrees"/>
+        <label for="rotationUnitsDegrees">Degrees</label>
+        <input type="radio" id="rotationUnitsRadians" data-ng-model="rotationUnits" value="radians"/>
+        <label for="rotationUnitsRadians">Radians</label>
+
+    </div>
+    
     <div class="quantumOpSpecification_item">
         <input type="submit" data-ng-disabled="!validInputs()" value="Perform Operation"></input>
     </div>
     
     </fieldset>
     
-     <output class="qstate" ng-bind='animatedQubitsContainer.qstate'></output>
+     <output class="qstate" data-ng-bind='animatedQubitsContainer.qstate'></output>
     
     </form>
     
