@@ -1,6 +1,6 @@
+/* global module */
 
-
-(function (globals) {
+(function () {
     "use strict";
 
     function animatedQubitsDirective() {
@@ -15,7 +15,6 @@
                     scope.animatedQubitsContainer.animatedQubits.display(element[0]);
                     var naturalDimensions = scope.animatedQubitsContainer.animatedQubits.getNaturalDimensions();
                     element.attr("height", naturalDimensions.height);
-                    //element.attr("width", naturalDimensions.width);
                 }
                 
                 updateDisplay();
@@ -29,6 +28,6 @@
         
     }
     
-    globals.animatedQubitsDirective = animatedQubitsDirective;
+    module.exports = animatedQubitsDirective;
 
-})(this);
+})();

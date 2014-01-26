@@ -4,7 +4,10 @@
   "description": "Web site for animated-qubits",
   "main": "quantumAnimationApp.js",
   "scripts": {
-    "hint": "jshint --config jshintConfig.json *.js"
+    "hint": "jshint --config jshintConfig.json src",
+    "browserify": "browserify index.js -o index.deps.js",
+    "uglify": "uglifyjs index.deps.js -o index.min.js",
+    "build": "npm run hint && npm run browserify && npm run uglify"
   },
   "repository": {
     "type": "git",
@@ -12,7 +15,13 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "animated-qubits": "0.0.7",
+    "jsqubits": "~0.2.0"
+  },
   "devDependencies": {
-    "jshint": "~2.3.0"
+    "browserify": "~3.24.1",
+    "uglify-js": "~2.4.11",
+    "jshint": "~2.4.2"
   }
 }

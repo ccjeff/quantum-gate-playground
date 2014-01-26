@@ -1,9 +1,10 @@
-(function (globals) {
+/* global require, module, alert */
+
+(function () {
     "use strict";
     
-    var jsqubits = globals.jsqubits,
-        animatedQubits = globals.animatedQubits,
-        alert = globals.alert;
+    var jsqubits = require("jsqubits").jsqubits,
+        animatedQubits = require("animated-qubits");
 
     function QuantumAnimationController($scope) {
     
@@ -151,6 +152,6 @@
     }
     
 
-    globals.QuantumAnimationController = QuantumAnimationController;
+    module.exports = QuantumAnimationController;
 
-})(this);
+})();
