@@ -51,6 +51,7 @@
 output.qstate {
     display: block;
     margin-left: 1em;
+    min-height: 3em;
 }
 
 [data-ng-cloak] {
