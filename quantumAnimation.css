@@ -2,6 +2,7 @@
     border: 1px solid black;
     width: 32em;
     margin: 1em;
+    padding: 1em;
 }
 
 .animatedQubitsAmplitudeCircle {
@@ -18,10 +19,15 @@
 }
 
 .quantumOpSpecification {
-    width: 28em;
+    width: 30em;
     margin: 1em;
     padding: 0 2em;
     border: 1px solid #999;
+}
+
+.quantumOpSpecification_label {
+    display: inline-block;
+    min-width: 7em;
 }
 
 .quantumOpSpecification_item {
@@ -29,6 +35,10 @@
     margin: 1em 0;
     padding: 0;
     border-bottom: 1px solid black;
+}
+
+.animatedQubits__singlequbit .animatedQubitsBitLabels {
+    display: none;
 }
 
 .quantumOpSpecification_item:last-child {
@@ -39,11 +49,6 @@
     color: gray;
 }
 
-.quantumOpSpecification_label {
-    display: inline-block;
-    width: 7em;
-}
-
 .quantumOpSpecification input[type=checkbox] {
     margin-right: 1em;
 }
@@ -52,6 +57,10 @@ output.qstate {
     display: block;
     margin-left: 1em;
     min-height: 3em;
+}
+
+output.qstate.qstate__singlequbit {
+    min-height: 0;
 }
 
 [data-ng-cloak] {

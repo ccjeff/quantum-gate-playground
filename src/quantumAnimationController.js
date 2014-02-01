@@ -13,7 +13,6 @@
             $scope.controlBitsDisabled = $scope.numBits === 1 || !$scope.operation.takesControlBits;
             if ($scope.controlBitsDisabled) $scope.controlBits.length = 0;
             $scope.targetBitsDisabled = $scope.numBits === 1;
-            if ($scope.numBits === 1) $scope.targetBits = [true];
         }
         
         function resetOverlappingBits(bits1, bits2) {
@@ -21,17 +20,28 @@
                 if (bit2Value && bits1[index]) bits2[index] = false;
             });
         }
+        
+        function initializeBitLabels() {
+            // Appending the labels in reverse makes it easier to render them that way
+            for(var i = $scope.numBits - 1; i >= 0; i--) {
+                $scope.bitLabels.push(i);
+            }
+        }
+        
+        function setAllTargetBitsOn() {
+            for (var i = 0; i < $scope.numBits; i++) {
+                $scope.targetBits[i] = true;
+            }
+        }
     
         function initializeState() {
             $scope.numBits = parseInt($scope.numBitsSelected, 10);
             $scope.bitLabels.length = 0;
             $scope.controlBits.length = 0;
             $scope.targetBits.length = 0;
-            // Appending the labels in reverse makes it easier to render them that way
-            for(var i = $scope.numBits - 1; i >= 0; i--) {
-                $scope.bitLabels.push(i);
-            }
-
+            initializeBitLabels();
+            setAllTargetBitsOn();
+            
             $scope.animatedQubitsContainer.qstate = new jsqubits.QState($scope.numBits);
             $scope.animatedQubitsContainer.animatedQubits =
                 animatedQubits($scope.animatedQubitsContainer.qstate, {maxRadius: 50});
@@ -66,7 +76,7 @@
             return $scope.animatedQubitsContainer.animatedQubits.applyOperation(op, operation.options);
         }
     
-        $scope.numBitsSelected = '2';
+        $scope.numBitsSelected = '1';
         $scope.operationIndex = 0;
         $scope.bitLabels = [];
         $scope.controlBits = [];
@@ -76,11 +86,9 @@
         $scope.animatedQubitsContainer = {};
         
         $scope.operations = [
-            {name: 'Measure', op: 'measure', options: {},
-                takesControlBits: false},
             {name: 'Hadamard', op: 'controlledHadamard', options: {skipInterferenceSteps: false},
                 takesControlBits: true},
-            {name: 'X', op: 'controlledX', options: {skipInterferenceSteps: false},
+            {name: 'X (not)', op: 'controlledX', options: {skipInterferenceSteps: false},
                 takesControlBits: true},
             {name: 'Y', op: 'controlledY', options: {skipInterferenceSteps: false},
                 takesControlBits: true},
@@ -97,6 +105,8 @@
             {name: 'Z Rotation', op: 'controlledZRotation', options: {skipInterferenceSteps: true},
                 takesControlBits: true, takesRotationAngle: true},
             {name: 'QFT', op: 'qft', options: {skipInterferenceSteps: false},
+                takesControlBits: false},
+            {name: 'Measure', op: 'measure', options: {},
                 takesControlBits: false}
         ];
         

@@ -50,6 +50,7 @@
     </div>
     
     <div class="quantumOpSpecification_item"
+        data-ng-show="numBits &gt; 1"
         data-ng-class="{quantumOpSpecification_item_disabled: controlBitsDisabled}">
         <label class="quantumOpSpecification_label">Control bits:</label>
         <span data-ng-hide="controlBitsDisabled">
@@ -68,6 +69,7 @@
         </span>
     </div>
     <div class="quantumOpSpecification_item"
+        data-ng-show="numBits &gt; 1"
         data-ng-class="{quantumOpSpecification_item_disabled: targetBitsDisabled}">
         <label class="quantumOpSpecification_label">Target bits:</label>
         <span data-ng-repeat='bitLabel in bitLabels'>
@@ -101,11 +103,15 @@
     
     </fieldset>
     
-     <output class="qstate" data-ng-bind='animatedQubitsContainer.qstate'></output>
+     <output class="qstate"
+         data-ng-class="{qstate__singlequbit: numBits === 1}"
+        data-ng-bind='animatedQubitsContainer.qstate'></output>
     
     </form>
     
-    <svg id='animatedQubitsSvg' data-animated-qubits='animatedQubitsContainer' class='animatedQubits'>
+    <svg id='animatedQubitsSvg' data-animated-qubits='animatedQubitsContainer'
+        class='animatedQubits'
+        data-ng-class="{animatedQubits__singlequbit: numBits === 1}">
     </svg>
 
 </div>
