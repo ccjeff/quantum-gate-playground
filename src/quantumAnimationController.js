@@ -134,6 +134,7 @@
         };
         
         $scope.validInputs = function () {
+            if ($scope.operation.takesRotationAngle && $scope.rotationAngle == null) return false;
             return $scope.targetBits.indexOf(true) >= 0;
         };
 

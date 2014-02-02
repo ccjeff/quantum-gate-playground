@@ -63,6 +63,10 @@ output.qstate.qstate__singlequbit {
     min-height: 0;
 }
 
+input:invalid {
+    border: solid 1px red;
+}
+
 [data-ng-cloak] {
     display: none;
 }
