@@ -11,7 +11,7 @@
     }
     
     function supportsES5() {
-        return [].forEach != null;
+        return [].forEach != null && Object.keys != null;
     }
     
     if (!supportsSvg() || !supportsES5()) {
