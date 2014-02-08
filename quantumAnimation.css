@@ -1,3 +1,18 @@
+body {
+    padding: 0 1em;
+    margin: 0;
+    max-width: 960px;
+}
+
+h1, h2 {
+    color: #25378B;
+}
+
+.dynamicSection {
+    padding: 1em;
+    border: 1px solid #999;
+}
+
 .animatedQubits {
     border: 1px solid black;
     width: 32em;
