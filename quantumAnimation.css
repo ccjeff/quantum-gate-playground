@@ -8,6 +8,12 @@ h1, h2 {
     color: #25378B;
 }
 
+input[type=submit] {
+    background-color: hsla(195, 53%, 60%, 0.5);
+    border-color: hsla(195, 53%, 60%, 0.5);
+    font-weight: bold;
+}
+
 .dynamicSection {
     padding: 1em;
     border: 1px solid #999;
