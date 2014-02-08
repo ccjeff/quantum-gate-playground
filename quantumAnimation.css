@@ -74,13 +74,17 @@ input[type=submit] {
     margin-right: 1em;
 }
 
-output.qstate {
+.label {
+    font-weight: bold;
+}
+
+.qstate {
     display: block;
     margin-left: 1em;
     min-height: 3em;
 }
 
-output.qstate.qstate__singlequbit {
+.qstate__singlequbit {
     min-height: 0;
 }
 

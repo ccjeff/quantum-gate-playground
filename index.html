@@ -104,9 +104,10 @@
     
     </fieldset>
     
-     <output class="qstate"
-         data-ng-class="{qstate__singlequbit: numBits === 1}"
-        data-ng-bind='animatedQubitsContainer.qstate'></output>
+    <div class="qstate" data-ng-class="{qstate__singlequbit: numBits === 1}">
+         <span class="label">Quantum state:</span>
+         <output data-ng-bind='animatedQubitsContainer.qstate'></output>
+    </div>
     
     </form>
     
