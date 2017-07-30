@@ -1,33 +1,27 @@
-/* global module */
+/* exported animatedQubitsDirective */
 
-(function () {
-    "use strict";
+function animatedQubitsDirective() {
+  "use strict";
 
-    function animatedQubitsDirective() {
-    
-        return {
-           scope: {
-                animatedQubitsContainer: '=animatedQubits'
-            },
-            
-            link: function postLink(scope, element) {
-                function updateDisplay() {
-                    scope.animatedQubitsContainer.animatedQubits.display(element[0]);
-                    var naturalDimensions = scope.animatedQubitsContainer.animatedQubits.getNaturalDimensions();
-                    element.attr("height", naturalDimensions.height);
-                }
-                
-                updateDisplay();
+    return {
+       scope: {
+            animatedQubitsContainer: '=animatedQubits'
+        },
 
-                scope.animatedQubitsContainer.reset = function reset() {
-                    element.empty();
-                    updateDisplay();
-                };
+        link: function postLink(scope, element) {
+            function updateDisplay() {
+                scope.animatedQubitsContainer.animatedQubits.display(element[0]);
+                var naturalDimensions = scope.animatedQubitsContainer.animatedQubits.getNaturalDimensions();
+                element.attr("height", naturalDimensions.height);
             }
-        };
-        
-    }
-    
-    module.exports = animatedQubitsDirective;
 
-})();
+            updateDisplay();
+
+            scope.animatedQubitsContainer.reset = function reset() {
+                element.empty();
+                updateDisplay();
+            };
+        }
+    };
+
+}

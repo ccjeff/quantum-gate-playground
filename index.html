@@ -35,7 +35,7 @@
             <option value="4">4</option>
         </select>
     </div>
-    
+
     <form data-ng-submit="performOperation()">
     <fieldset class="quantumOpSpecification">
     <legend>Specify the operation to be performed</legend>
@@ -48,7 +48,7 @@
             </option>
         </select>
     </div>
-    
+
     <div class="quantumOpSpecification_item"
         data-ng-show="numBits &gt; 1"
         data-ng-class="{quantumOpSpecification_item_disabled: controlBitsDisabled}">
@@ -82,7 +82,7 @@
         </span>
         <button type="button" data-ng-click='selectAllAsTargetBits()'>Select All Non-Control Bits</button>
     </div>
-    
+
     <div class="quantumOpSpecification_item"
         data-ng-class="{quantumOpSpecification_item_disabled: !operation.takesRotationAngle}">
         <label for="rotationAngle">Rotation angle:</label>
@@ -97,20 +97,20 @@
         </span>
         <span data-ng-hide="operation.takesRotationAngle">N/A</span>
     </div>
-    
+
     <div class="quantumOpSpecification_item">
         <input type="submit" data-ng-disabled="!validInputs()" value="Perform Operation"></input>
     </div>
-    
+
     </fieldset>
-    
+
     <div class="qstate" data-ng-class="{qstate__singlequbit: numBits === 1}">
          <span class="label">Quantum state:</span>
          <output data-ng-bind='animatedQubitsContainer.qstate'></output>
     </div>
-    
+
     </form>
-    
+
     <svg id='animatedQubitsSvg' data-animated-qubits='animatedQubitsContainer'
         class='animatedQubits'
         data-ng-class="{animatedQubits__singlequbit: numBits === 1}">
@@ -144,9 +144,20 @@
     Loading. This may take a few seconds.....
 </div>
 
-<!--TODO: Work out how to use angular with https://npmjs.org/package/angular-->
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-<script src="index.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js" type="text/javascript"></script>
+
+<script src="app/bower_components/animated-qubits/animatedQubits.min.js" type="text/javascript"></script>
+<script src="app/bower_components/d3/d3.min.js" type="text/javascript"></script>
+<script src="app/bower_components/d3-measure-text/lib/d3-measure-text.js" type="text/javascript"></script>
+<script src="app/bower_components/d3-transform/src/d3-transform.js" type="text/javascript"></script>
+<script src="app/bower_components/jsqubits/lib/jsqubits.js" type="text/javascript"></script>
+<script src="app/bower_components/q/q.js" type="text/javascript"></script>
+<script src="app/bower_components/lodash/dist/lodash.min.js" type="text/javascript"></script>
+
+
+<script src="./src/quantumAnimationController.js" type="text/javascript"></script>
+<script src="./src/animatedQubitsDirective.js" type="text/javascript"></script>
+<script src="./src/quantumAnimationApp.js" type="text/javascript"></script>
 
 <script src="browserSupportDetection.js"></script>
 

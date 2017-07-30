@@ -16,3 +16,7 @@ index.deps.js
 
 npm-debug.log
 node_modules
+
+app/**/test
+app/**/spec
+app/**/examples

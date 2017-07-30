@@ -1,11 +1,4 @@
-/* global require, angular */
+/* global angular, animatedQubitsDirective */
 
-(function () {
-    "use strict";
-    
-    var animatedQubitsDirective = require("./animatedQubitsDirective.js");
-
-    angular.module('QuantumAnimation', [])
-        .directive('animatedQubits', animatedQubitsDirective);
-
-})();
+angular.module('QuantumAnimation', [])
+    .directive('animatedQubits', animatedQubitsDirective);
