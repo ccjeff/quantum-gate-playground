@@ -87,7 +87,8 @@
         data-ng-class="{quantumOpSpecification_item_disabled: !operation.takesRotationAngle}">
         <label for="rotationAngle">Rotation angle:</label>
         <span data-ng-show="operation.takesRotationAngle">
-            <input type="number" name="rotationAngle" id="rotationAngle"
+            <input type="number" step="0.000000000000001"
+                name="rotationAngle" id="rotationAngle"
                 data-ng-required="operation.takesRotationAngle"
                 data-ng-model="rotationAngle" data-ng-disabled="!operation.takesRotationAngle"/>
             <input type="radio" id="rotationUnitsDegrees" data-ng-model="rotationUnits" value="degrees"/>
